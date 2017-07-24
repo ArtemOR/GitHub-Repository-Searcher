@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">GithubSearch</string>
     <string name="search_button_name">Search</string>
-    <string name="noInternetConnection">Please check your internet connection</string>
-    <string name="allFieldsIsEmpty">Please fill keywords</string>
+    <string name="no_internet_connection">Please check your internet connection</string>
+    <string name="all_fields_is_empty">Please fill mandatory field “Qualifiers”</string>
+    <string name="no_objects_found">Search complete, found 0 repositories. Please specify another Qualifiers</string>
+    <string name="qualifiers">Qualifiers*</string>
+    <string name="sort">Sort</string>
+    <string name="order">Order</string>
 </resources>

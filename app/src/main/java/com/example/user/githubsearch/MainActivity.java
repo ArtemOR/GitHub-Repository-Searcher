@@ -1,14 +1,17 @@
 package com.example.user.githubsearch;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,26 +19,64 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonParamsSearch;
-    EditText keywords;
-    EditText language;
+    Button searchByParamsButton;
+    EditText qualifiers;
+    Spinner sort;
+    Spinner order;
+
+    List<Repository> repositories;
+    String[] sortData = {"", "stars", "forks", "updated"};
+    String[] orderData = {"desc", "asc"};
+
     ConnectionChecker connectionChecker;
 
-    private static final String LOG = "mainLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        switchToMainLayout();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        switchToMainLayout("", 0, 0);
     }
 
-    private void switchToMainLayout() {
+    private void switchToMainLayout(String q, int s, int o) {
         setContentView(R.layout.activity_main);
 
-        buttonParamsSearch = (Button) findViewById(R.id.searchButton);
-        keywords = (EditText) findViewById(R.id.keywords);
-        language = (EditText) findViewById(R.id.language);
-        buttonParamsSearch.setOnClickListener(this);
+        qualifiers = (EditText) findViewById(R.id.qualifiers);
+        qualifiers.setText(q);
+
+        ArrayAdapter<String> sortAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sortData);
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sort = (Spinner) findViewById(R.id.sortSelect);
+        sort.setAdapter(sortAdapter);
+        sort.setPrompt(getString(R.string.sort));
+        sort.setSelection(s);
+
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, orderData);
+        orderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        order = (Spinner) findViewById(R.id.orderSelect);
+        order.setAdapter(orderAdapter);
+        order.setPrompt(getString(R.string.order));
+        order.setSelection(o);
+
+
+        sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                order.setEnabled(!sort.getSelectedItem().toString().isEmpty());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+
+        searchByParamsButton = (Button) findViewById(R.id.searchButton);
+        searchByParamsButton.setOnClickListener(this);
         connectionChecker = new ConnectionChecker(this);
 
     }
@@ -49,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             View resultView = View.inflate(linearLayout.getContext(), R.layout.search_result, null);
 
             TextView textViewTitle = (TextView) resultView.findViewById(R.id.textViewTitle);
-            textViewTitle.setText(repository.name);
+            textViewTitle.setText("\"" + repository.name + "\"" + " by " + repository.author.login);
 
             TextView textViewDescription = (TextView) resultView.findViewById(R.id.textViewDescription);
             textViewDescription.setText(repository.description);
@@ -68,24 +109,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.searchButton:
-                String keywordsStr = keywords.getText().toString();
-                String languageStr = language.getText().toString();
+                String keywordsStr = qualifiers.getText().toString();
+                String sortStr = sort.getSelectedItem().toString();
+                String orderStr = order.getSelectedItem().toString();
 
-                if (keywordsStr.isEmpty() && languageStr.isEmpty()) {
-                    Toast toast = Toast.makeText(this, R.string.allFieldsIsEmpty, Toast.LENGTH_LONG);
+                if (keywordsStr.isEmpty()) {
+                    Toast toast = Toast.makeText(this, R.string.all_fields_is_empty, Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     if (connectionChecker.isConnect()) {
                         _this = this;
-                        GithubSearch.search(keywordsStr, languageStr);
+                        GithubSearch.search(keywordsStr, sortStr, orderStr);
                     } else {
-                        Toast toast = Toast.makeText(this, R.string.noInternetConnection, Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
                 break;
             case R.id.buttonReturn:
-                switchToMainLayout();
+                switchToMainLayout(qualifiers.getText().toString(), sort.getSelectedItemPosition(), order.getSelectedItemPosition());
                 break;
             case R.id.result:
                 String url = (String) view.getTag();
@@ -95,5 +137,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    List<Repository> repositories;
 }

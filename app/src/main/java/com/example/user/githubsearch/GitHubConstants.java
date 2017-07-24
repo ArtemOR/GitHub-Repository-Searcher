@@ -3,8 +3,9 @@ package com.example.user.githubsearch;
 public class GitHubConstants {
 
     public static final String MAIN_URL = "https://api.github.com/search/repositories?q=";
-    public static final String KEYWORDS = "keywords";
-    public static final String LANGUAGE = "language";
+    public static final String QUALIFIERS = "qualifiers";
+    public static final String SORT = "sort";
+    public static final String ORDER = "order";
     public static final String ITEMS = "items";
 
     public static final String NAME = "name";

@@ -1,20 +1,17 @@
 package com.example.user.githubsearch;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 public class GithubSearch {
 
 
-    public static void search(String keyword, String language) {
-        //String a = "https://api.github.com/search/repositories?q=tetris+language:Java";
+    public static void search(String keyword, String sort, String order) {
         Map<String, String> urlParams = new HashMap<String, String>();
-        urlParams.put(GitHubConstants.KEYWORDS, keyword);
-        urlParams.put(GitHubConstants.LANGUAGE, language);
+        urlParams.put(GitHubConstants.QUALIFIERS, keyword);
+        urlParams.put(GitHubConstants.SORT, sort);
+        urlParams.put(GitHubConstants.ORDER, order);
         GitHubSearchHelper gitHubSearchHelper = new GitHubSearchHelper(urlParams);
         gitHubSearchHelper.execute();
     }

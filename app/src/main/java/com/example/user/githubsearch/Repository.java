@@ -1,16 +1,8 @@
 package com.example.user.githubsearch;
 
-import android.util.Log;
-
-import com.example.user.githubsearch.Author;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by arry0716 on 23.07.2017.
- */
 public class Repository {
     String name;
     String html_url;
@@ -30,6 +22,6 @@ public class Repository {
 
     @Override
     public String toString() {
-        return name+"\r\n"+html_url+"\r\n"+description+"\r\n";
+        return name + "\r\n" + html_url + "\r\n" + description + "\r\n";
     }
 }

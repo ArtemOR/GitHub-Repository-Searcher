@@ -47,6 +47,15 @@
         <dex dex="D:\Users\User\AndroidStudioProjects\GithubSearch\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_88911ddaf73e05d8b66489ed3cfc2eed1b23479d\classes.dex" />
     </item>
     <item
+        is-multidex="true"
+        jar="D:\Users\User\AndroidStudioProjects\Repository\GitHub-Repository-Searcher\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="D:\Users\User\AndroidStudioProjects\Repository\GitHub-Repository-Searcher\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_3dabc5dba09913f48d60928183160d325ebf22b3\classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="C:\Users\User\.android\build-cache\a7db14861c19c991f2a5b934b6daeeac9bd08508\output\jars\classes.jar"
         jumboMode="false"
@@ -54,6 +63,15 @@
         revision="26.0.0"
         sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
         <dex dex="D:\Users\User\AndroidStudioProjects\GithubSearch\app\build\intermediates\pre-dexed\debug\classes_446bd62f424a430d990c0137781260d50687daaa.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Users\User\AndroidStudioProjects\Repository\GitHub-Repository-Searcher\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c1a0539ebe4ae7f26aef2aef35dba47ca965da09">
+        <dex dex="D:\Users\User\AndroidStudioProjects\Repository\GitHub-Repository-Searcher\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_ee87fdad6d8b0c5d128e273085ed488019cb93ea\classes.dex" />
     </item>
     <item
         is-multidex="false"
